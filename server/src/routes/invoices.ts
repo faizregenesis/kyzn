@@ -7,6 +7,7 @@ const router = Router();
 router.post('/', async (req: Request, res: Response) => {
   try {
     const { date, customer_name, salesperson_name, notes, products } = req.body;
+    console.log("req.body", req.body)
 
     if (!date || !customer_name || !salesperson_name || !products?.length) {
       return res.status(400).json({ error: 'Invalid input' });
@@ -20,15 +21,22 @@ router.post('/', async (req: Request, res: Response) => {
     );
 
     const invoiceId = invoiceResult.rows[0].id;
+    console.log("invoiceId--->", invoiceId)
 
     // Insert products
-    for (const p of products) {
-      await query(
-        `INSERT INTO invoice_items (invoice_id, product_name, quantity, price)
-         VALUES ($1, $2, $3, $4)`,
-        [invoiceId, p.name, p.quantity, p.price]
-      );
-    }
+for (const p of products) {
+  try {
+    const x = await query(
+      `INSERT INTO invoice_items (invoice_id, product_name, quantity, unit_price)
+       VALUES ($1, $2, $3, $4) RETURNING *`,
+      [invoiceId, p.name, p.quantity, p.price]
+    );
+    console.log("Inserted item ->", x.rows[0]);
+  } catch (err) {
+    console.error("Insert product error:", err);
+  }
+}
+    
 
     res.status(201).json({ message: 'Invoice created', invoiceId });
   } catch (err) {

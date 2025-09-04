@@ -16,3 +16,10 @@ product_name TEXT NOT NULL,
 unit_price INTEGER NOT NULL, -- cents
 quantity INTEGER NOT NULL CHECK (quantity > 0)
 );
+
+CREATE TABLE IF NOT EXISTS products (
+  id SERIAL PRIMARY KEY,
+  name TEXT NOT NULL,
+  unit_price INTEGER NOT NULL, -- harga dalam cents (atau gunakan NUMERIC untuk desimal)
+  created_at TIMESTAMPTZ NOT NULL DEFAULT now()
+);

@@ -1,18 +1,19 @@
-import { configureStore } from '@reduxjs/toolkit';
-import productsReducer from '../../src/features/products/productsSlice';
-import { invoicesApi } from '../../src/features/invoices/invoicesApi';
-import { metricsApi } from '../../src/features/metrics/metricsApi';
+import { configureStore } from "@reduxjs/toolkit";
+import { invoicesApi } from "../features/invoices/invoicesApi";
+import { metricsApi } from "../features/metrics/metricsApi";
+import { productsApi } from "../features/products/productsApi";
 
 export const store = configureStore({
   reducer: {
-    products: productsReducer,
     [invoicesApi.reducerPath]: invoicesApi.reducer,
     [metricsApi.reducerPath]: metricsApi.reducer,
+    [productsApi.reducerPath]: productsApi.reducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(
       invoicesApi.middleware,
-      metricsApi.middleware
+      metricsApi.middleware,
+      productsApi.middleware
     ),
 });
 

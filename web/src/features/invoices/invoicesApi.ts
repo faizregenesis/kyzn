@@ -1,9 +1,18 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
+export interface InvoiceItem {
+  name: string;
+  quantity: number;
+  price: number;
+}
+
 export interface Invoice {
-  id: number;
-  customer: string;
-  amount: number;
+  id?: number;
+  date: string;
+  customer_name: string;
+  salesperson_name: string;
+  notes?: string | null;
+  products: InvoiceItem[];
 }
 
 export const invoicesApi = createApi({

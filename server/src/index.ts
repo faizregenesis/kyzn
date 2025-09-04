@@ -4,6 +4,7 @@ import dotenv from 'dotenv';
 import { pool } from './db';
 import invoices from './routes/invoices';
 import metrics from './routes/metrics';
+import products from './routes/products'
 import fs from 'fs';
 import path from 'path';
 
@@ -19,6 +20,7 @@ app.use(express.json());
 app.get('/health', (_req, res) => res.json({ ok: true }));
 app.use('/api/invoices', invoices);
 app.use('/api/metrics', metrics);
+app.use("/products", products);
 
 
 const port = Number(process.env.PORT || 4000);
