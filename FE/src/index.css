@@ -1,0 +1,108 @@
+:root {
+  --bg: #f7f8fa;
+  --card: #fff;
+  --muted: #666;
+  --accent: #0366d6;
+}
+
+body {
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  background: var(--bg);
+  margin: 0;
+  padding: 32px;
+  color: #111;
+}
+
+.app {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+h1 {
+  margin-bottom: 12px;
+  font-size: 20px;
+}
+
+.datagrid {
+  background: var(--card);
+  border-radius: 8px;
+  box-shadow: 0 6px 18px rgba(18, 25, 35, 0.06);
+  padding: 16px;
+}
+
+.dg-toolbar {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 12px;
+  align-items: center;
+}
+
+.dg-toolbar input {
+  padding: 8px 10px;
+  border-radius: 6px;
+  border: 1px solid #e3e7ee;
+  min-width: 200px;
+}
+
+.dg-info {
+  color: var(--muted);
+  font-size: 13px;
+  margin-left: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th, td {
+  padding: 10px 12px;
+  border-bottom: 1px solid #eef2f6;
+}
+
+th {
+  font-weight: 600;
+  font-size: 13px;
+  user-select: none;
+}
+
+.sort-ind {
+  font-size: 12px;
+  margin-left: 6px;
+  color: var(--accent);
+}
+
+.dg-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 12px;
+}
+
+.dg-pager button {
+  padding: 6px 8px;
+  margin-left: 6px;
+  border-radius: 6px;
+  border: 1px solid #e3e7ee;
+  background: white;
+  cursor: pointer;
+}
+
+.dg-pager button:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.btn {
+  display: inline-block;
+  padding: 8px 14px;
+  margin-top: 12px;
+  border: 1px solid #0366d6;
+  border-radius: 6px;
+  background: #0366d6;
+  color: white;
+  text-decoration: none;
+  font-size: 14px;
+  cursor: pointer;
+}
+

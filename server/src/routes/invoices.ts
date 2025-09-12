@@ -48,13 +48,14 @@ for (const p of products) {
 // GET invoices with pagination (lazy loading)
 router.get('/', async (req: Request, res: Response) => {
   try {
+    /*
     const page = parseInt(req.query.page as string) || 1;
     const limit = parseInt(req.query.limit as string) || 10;
     const offset = (page - 1) * limit;
 
     const { rows } = await query(
       `SELECT i.id, i.customer_name, i.salesperson_name, i.notes,
-              COALESCE(SUM(ii.quantity * ii.price), 0) as total_amount
+              COALESCE(SUM(ii.quantity * ii.unit_price), 0) as total_amount
        FROM invoices i
        LEFT JOIN invoice_items ii ON i.id = ii.invoice_id
        GROUP BY i.id
@@ -62,6 +63,27 @@ router.get('/', async (req: Request, res: Response) => {
        LIMIT $1 OFFSET $2`,
       [limit, offset]
     );
+    */
+   let queryStr = `
+  SELECT i.id, i.customer_name, i.salesperson_name, i.notes,
+         COALESCE(SUM(ii.quantity * ii.unit_price), 0) as total_amount
+  FROM invoices i
+  LEFT JOIN invoice_items ii ON i.id = ii.invoice_id
+  GROUP BY i.id
+  ORDER BY i.date DESC
+`;
+
+let params: any[] = [];
+
+if (req.query.page && req.query.limit) {
+  const page = parseInt(req.query.page as string);
+  const limit = parseInt(req.query.limit as string);
+  const offset = (page - 1) * limit;
+  queryStr += ` LIMIT $1 OFFSET $2`;
+  params = [limit, offset];
+}
+
+const { rows } = await query(queryStr, params);
 
     res.json(rows);
   } catch (err) {
